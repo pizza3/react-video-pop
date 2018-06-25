@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import Pop from './Pop';
 const Hide = styled.div`
 	width: 100%;
 	height: 100%;
-	background: #000;
+	background: #2b2b2b;
 	position: absolute;
-`;
-
-const Poo = styled.div`
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 400px;
-	border-radius: 7px;
-	overflow: hidden;
-	border-radius: 4px;
 	visibility: hidden;
+	top: 0;
 `;
-
-const modalRoot = document.getElementById('modal-root');
 
 class Video extends Component {
 	state = {
@@ -41,28 +30,21 @@ class Video extends Component {
 		window.addEventListener('scroll', this.handleScroll);
 	};
 
-	handleScroll = e => {
+	handleScroll = () => {
 		let el = document.getElementById('video-pop');
 		let elProperty = el.getBoundingClientRect();
 		let height = (elProperty.height * 80) / 100;
 		if (window.scrollY >= height + this.state.top) {
-			var isMobileVersion = document.getElementsByClassName('change');
-			if (isMobileVersion.length > 0) {
-				// elements with class "snake--mobile" exist
-			} else {
-				el.className += ' change';
-			}
 			this.setState(
 				{
 					show: true,
-					time: el.currentTime
+					currTime: el.currentTime
 				},
 				() => {
-					// el.pause();
+					el.pause();
 				}
 			);
 		} else {
-			el.classList.remove('change');
 			this.setState(
 				{
 					show: false
@@ -74,28 +56,32 @@ class Video extends Component {
 		}
 	};
 
+	handleChange = time => {
+		let el = document.getElementById('video-pop');
+		this.setState(
+			{
+				currTime: time
+			},
+			() => {
+				el.currentTime = this.state.currTime;
+				el.play();
+			}
+		);
+	};
+
 	render() {
-		const { Src } = this.props;
+		const { Src, root } = this.props;
 		return (
 			<React.Fragment>
-				<video
-					id="video-pop"
-					className="choose"
-					controls
-					muted
-					autoPlay
+				<video id="video-pop" className="choose" controls src={Src} />
+				<Hide />
+				<Pop
 					src={Src}
+					root={root}
+					Show={this.state.show}
+					currtime={this.state.currTime}
+					change={this.handleChange}
 				/>
-				<Poo>
-					<video
-						id="video-po"
-						width="300px"
-						style={{ borderRadius: '4px' }}
-						controls
-						muted
-						src={Src}
-					/>
-				</Poo>
 			</React.Fragment>
 		);
 	}
@@ -104,5 +90,6 @@ class Video extends Component {
 export default Video;
 
 Video.propTypes = {
-	Src: PropTypes.string.isRequired
+	Src: PropTypes.string.isRequired,
+	root: PropTypes.string.isRequired
 };

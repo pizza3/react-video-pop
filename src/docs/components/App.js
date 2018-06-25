@@ -27,7 +27,7 @@ export default class App extends Component {
 		return (
 			<Title>
 				<Wrapper>
-					<Video Src={Scene} />
+					<Video Src={Scene} root="video-root" />
 				</Wrapper>
 			</Title>
 		);
