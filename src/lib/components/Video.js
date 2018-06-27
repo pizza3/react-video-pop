@@ -24,6 +24,16 @@ class Video extends Component {
 		this.setState({
 			top: ~~(window.scrollY + el.top)
 		});
+		Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
+			get: function() {
+				return !!(
+					this.currentTime > 0 &&
+					!this.paused &&
+					!this.ended &&
+					this.readyState > 2
+				);
+			}
+		});
 	}
 
 	setEventListeners = () => {
@@ -34,25 +44,27 @@ class Video extends Component {
 		let el = document.getElementById('video-pop');
 		let elProperty = el.getBoundingClientRect();
 		let height = (elProperty.height * 80) / 100;
-		if (window.scrollY >= height + this.state.top) {
-			this.setState(
-				{
-					show: true,
-					currTime: el.currentTime
-				},
-				() => {
-					el.pause();
-				}
-			);
-		} else {
-			this.setState(
-				{
-					show: false
-				},
-				() => {
-					// el.play();
-				}
-			);
+		if (document.querySelector('video').playing) {
+			if (window.scrollY >= height + this.state.top) {
+				this.setState(
+					{
+						show: true,
+						currTime: el.currentTime
+					},
+					() => {
+						el.pause();
+					}
+				);
+			} else {
+				this.setState(
+					{
+						show: false
+					},
+					() => {
+						el.play();
+					}
+				);
+			}
 		}
 	};
 

@@ -152,6 +152,7 @@ export default class Pop extends Component {
 		}
 		requestAnimationFrame(this.renderAnimation);
 	};
+
 	render() {
 		const root = document.getElementById(this.props.root);
 		const style = {
