@@ -7,8 +7,24 @@ const Hide = styled.div`
 	height: 100%;
 	background: #2b2b2b;
 	position: absolute;
-	visibility: hidden;
 	top: 0;
+	opacity: 0.8;
+`;
+
+const HideText = styled.div`
+	position: absolute;
+	color: #fff;
+	font-family: sans-serif;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 19px;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-weight: 100;
+	font-size: 28px;
+	text-shadow: 1px 1px #0a0a0a;
 `;
 
 class Video extends Component {
@@ -85,8 +101,15 @@ class Video extends Component {
 		const { Src, root } = this.props;
 		return (
 			<React.Fragment>
-				<video id="video-pop" className="choose" controls src={Src} />
-				<Hide />
+				<section id="vv">
+					<video id="video-pop" className="choose" controls src={Src} />
+				</section>
+				{this.state.show ? (
+					<React.Fragment>
+						<Hide />
+						<HideText>Floating Video Active</HideText>
+					</React.Fragment>
+				) : null}
 				<Pop
 					src={Src}
 					root={root}
