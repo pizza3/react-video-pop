@@ -27,16 +27,37 @@ export default class Pop extends Component {
 		this.setState({
 			active: true
 		});
+		Object.defineProperty(HTMLMediaElement.prototype, 'playingPop', {
+			get: function() {
+				return !!(
+					this.currentTime > 0 &&
+					!this.paused &&
+					!this.ended &&
+					this.readyState > 2
+				);
+			}
+		});
 	}
 
 	static getDerivedStateFromProps(props, state) {
 		let el = document.getElementById('pop');
-		if (props.currtime !== state.currtime || props.show !== state.show) {
+		if (props.currtime !== state.currtime) {
+			el.currentTime = props.currtime;
+			el.play();
+			return {
+				currtime: props.currtime
+			};
+		}
+		if (props.Show !== state.show) {
 			if (props.Show === true) {
 				el.currentTime = props.currtime;
 				el.play();
 				return {
-					currtime: props.currtime,
+					show: props.Show
+				};
+			} else {
+				el.pause();
+				return {
 					show: props.Show
 				};
 			}

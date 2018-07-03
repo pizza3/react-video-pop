@@ -31,7 +31,8 @@ class Video extends Component {
 	state = {
 		show: false,
 		top: null,
-		currTime: null
+		currTime: null,
+		popPlaying: false
 	};
 
 	componentDidMount() {
@@ -65,18 +66,31 @@ class Video extends Component {
 				this.setState(
 					{
 						show: true,
-						currTime: el.currentTime
+						currTime: el.currentTime,
+						popPlaying: true
 					},
 					() => {
 						el.pause();
 					}
 				);
-			} else {
+			}
+			// else {
+			// 	this.setState({
+			// 		popPlaying: false
+			// 	});
+			// }
+		}
+
+		if (this.state.popPlaying) {
+			if (window.scrollY <= height + this.state.top) {
 				this.setState(
 					{
-						show: false
+						show: false,
+						popPlaying: false
 					},
 					() => {
+						let el2 = document.getElementById('pop');
+						el.currentTime = el2.currentTime;
 						el.play();
 					}
 				);
