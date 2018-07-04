@@ -175,6 +175,10 @@ var Pop = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var root = document.getElementById(this.props.root);
+			var videoStyle = {
+				position: 'absolute',
+				borderRadius: '4px'
+			};
 			var style = {
 				position: 'fixed',
 				zIndex: '10',
@@ -183,16 +187,17 @@ var Pop = function (_Component) {
 				left: this.state.pos.x + 'px',
 				boxShadow: '0px 0px 41px -5px rgba(0,0,0,0.75)',
 				transformOrigin: 'center',
-				transform: 'scale(' + this.state.scale + ')'
+				transform: 'scale(' + this.state.scale + ')',
+				overflow: 'hidden'
 			};
 			return _reactDom2.default.createPortal(_react2.default.createElement(
-				_react2.default.Fragment,
-				null,
+				'div',
+				{ style: style },
 				_react2.default.createElement('video', {
 					id: 'pop',
 					width: '300',
 					src: this.props.src,
-					style: style,
+					style: videoStyle,
 					className: 'pop',
 					onMouseDown: this.handleDown,
 					onMouseUp: this.handleUp
@@ -228,16 +233,6 @@ var Pop = function (_Component) {
 
 			return null;
 		}
-
-		// componentDidUpdate(prevProps, prevState) {
-		// 	if (this.state.show === prevState.show) {
-		// 		let el = document.getElementById('pop');
-		// 		let time = el.currentTime;
-		// 		el.pause();
-		// 		this.props.change(time);
-		// 	}
-		// }
-
 	}]);
 
 	return Pop;

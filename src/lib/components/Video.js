@@ -74,11 +74,6 @@ class Video extends Component {
 					}
 				);
 			}
-			// else {
-			// 	this.setState({
-			// 		popPlaying: false
-			// 	});
-			// }
 		}
 
 		if (this.state.popPlaying) {

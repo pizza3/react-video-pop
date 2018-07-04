@@ -54,7 +54,7 @@ var Video = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Video.__proto__ || Object.getPrototypeOf(Video)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-			show: false,
+			show: true,
 			top: null,
 			currTime: null,
 			popPlaying: false

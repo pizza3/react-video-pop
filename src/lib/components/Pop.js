@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Controls from './Controls';
-
 export default class Pop extends Component {
 	state = {
 		currtime: null,
 		isDown: false,
 		active: false,
 		show: this.props.Show,
+		mouseOver: false,
+		mute: false,
 		pos: {
 			x: 10,
 			y: 10
@@ -45,35 +46,27 @@ export default class Pop extends Component {
 			el.currentTime = props.currtime;
 			el.play();
 			return {
-				currtime: props.currtime
+				currtime: props.currtime,
+				show: props.Show
 			};
-		}
-		if (props.Show !== state.show) {
-			if (props.Show === true) {
-				el.currentTime = props.currtime;
-				el.play();
-				return {
-					show: props.Show
-				};
-			} else {
-				el.pause();
-				return {
-					show: props.Show
-				};
-			}
+		} else if (props.Show !== state.show) {
+			console.log('changed show');
+			// if (props.Show === true) {
+			// 	el.currentTime = props.currtime;
+			// 	el.play();
+			// 	return {
+			// 		show: props.Show
+			// 	};
+			// } else {
+			el.pause();
+			return {
+				show: props.Show
+			};
+			// }
 		}
 
 		return null;
 	}
-
-	// componentDidUpdate(prevProps, prevState) {
-	// 	if (this.state.show === prevState.show) {
-	// 		let el = document.getElementById('pop');
-	// 		let time = el.currentTime;
-	// 		el.pause();
-	// 		this.props.change(time);
-	// 	}
-	// }
 
 	handleEventListener = () => {
 		window.addEventListener('mousemove', this.handleMove);
@@ -172,13 +165,40 @@ export default class Pop extends Component {
 	};
 
 	handleScale = rest => {
-		let mass = 0.5;
+		let mass = 0.9;
 		let damping = 0.6;
 		this.fScale = -0.2 * (this.state.scale - rest);
 		this.aScale = this.fScale / mass;
 		this.vScale = damping * (this.vScale + this.aScale);
 		this.setState({
 			scale: this.state.scale + this.vScale
+		});
+	};
+
+	handleMute = () => {
+		let el = document.getElementById('pop');
+		this.state.mute
+			? this.setState(
+				{
+					mute: false
+				},
+				() => {
+					video.muted = false;
+				}
+			  )
+			: this.setState(
+				{
+					mute: true
+				},
+				() => {
+					video.muted = true;
+				}
+			  );
+	};
+
+	handleScaleDown = () => {
+		this.setState({
+			show: false
 		});
 	};
 
@@ -199,27 +219,51 @@ export default class Pop extends Component {
 		const root = document.getElementById(this.props.root);
 		const style = {
 			position: 'fixed',
+			width: '300px',
+			height: '168px',
 			zIndex: '10',
 			borderRadius: '4px',
 			top: `${this.state.pos.y}px`,
 			left: `${this.state.pos.x}px`,
 			boxShadow: '0px 0px 41px -5px rgba(0,0,0,0.75)',
 			transformOrigin: 'center',
-			transform: `scale(${this.state.scale})`
+			transform: `scale(${this.state.scale})`,
+			overflow: 'hidden'
+		};
+
+		const videoStyle = {
+			width: '300px',
+			height: '168px'
 		};
 		return ReactDOM.createPortal(
-			<React.Fragment>
+			<div
+				style={style}
+				onMouseDown={this.handleDown}
+				onMouseUp={this.handleUp}
+				onMouseOver={() => {
+					this.setState({
+						mouseOver: true
+					});
+				}}
+				onMouseLeave={() => {
+					this.setState({
+						mouseOver: false
+					});
+				}}
+			>
 				<video
 					id="pop"
 					width="300"
 					src={this.props.src}
-					style={style}
+					style={videoStyle}
 					className="pop"
-					onMouseDown={this.handleDown}
-					onMouseUp={this.handleUp}
 				/>
-				<Controls />
-			</React.Fragment>,
+				<Controls
+					show={this.state.mouseOver}
+					mute={this.handleMute}
+					scale={this.handleScaleDown}
+				/>
+			</div>,
 			root
 		);
 	}

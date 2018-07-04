@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import Pause from '../utils/Pause';
+import Close from '../utils/Close';
+import Volume from '../utils/Volume';
 
-const Control = styled.div`
-	position: relative;
-	width: 100%;
-	height: 100%;
-	background: #000;
-	opacity: 0.8;
-`;
 class Controls extends Component {
 	state = {};
 
 	render() {
-		return <Control />;
+		let style = {
+			position: 'relative',
+			width: '100%',
+			height: '100%',
+			transition: '0.3s',
+			opacity: this.props.show ? '1' : '0'
+		};
+		return (
+			<div style={style}>
+				<Close scale={this.props.scale} />
+				<Pause />
+				<Volume mute={this.props.mute} />
+			</div>
+		);
 	}
 }
 

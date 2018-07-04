@@ -18,7 +18,7 @@ module.exports = {
 				exclude: /node_modules/
 			},
 			{
-				test: /\.(webm|mp4|gif)$/,
+				test: /\.(webm|mp4|gif|svg)$/,
 				use: [
 					{
 						loader: 'file-loader',
