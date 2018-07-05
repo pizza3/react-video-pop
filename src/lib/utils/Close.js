@@ -1,9 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Img from './vectors/close.svg';
-
-const handleClick = props => {
-	props.scale();
-};
 
 const Close = props => {
 	let style = {
@@ -12,17 +9,21 @@ const Close = props => {
 		left: '10px',
 		width: '20px',
 		height: '20px',
-		background: '#fff',
-		border: '1px solid #fff',
+		background: 'rgb(226, 226, 226)',
+		border: '1px solid rgb(226, 226, 226)',
 		borderRadius: '50%',
 		opacity: '0.9',
 		cursor: 'pointer'
 	};
 	return (
-		<div style={style} onClick={props.scale}>
+		<div style={style} onClick={props.close}>
 			<img src={Img} width="18px" />
 		</div>
 	);
 };
 
 export default Close;
+
+Close.propTypes = {
+	close: PropTypes.func
+};

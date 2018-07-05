@@ -29,15 +29,23 @@ const HideText = styled.div`
 
 class Video extends Component {
 	state = {
-		show: false,
+		show: true,
 		top: null,
 		currTime: null,
-		popPlaying: false
+		popPlaying: false,
+		mute: this.props.mute
 	};
 
 	componentDidMount() {
+		this.Vid = React.createRef();
+		let node = this.Vid.current;
+		let el = document.getElementById('video-pop');
 		this.setEventListeners();
-		let el = document.getElementById('video-pop').getBoundingClientRect();
+		if (this.state.mute) {
+			el.muted = true;
+		} else {
+			el.muted = false;
+		}
 		this.setState({
 			top: ~~(window.scrollY + el.top)
 		});
@@ -58,19 +66,19 @@ class Video extends Component {
 	};
 
 	handleScroll = () => {
-		let el = document.getElementById('video-pop');
-		let elProperty = el.getBoundingClientRect();
-		let height = (elProperty.height * 80) / 100;
+		let node = this.Vid.current;
+		let property = node.getBoundingClientRect();
+		let height = (property.height * 80) / 100;
 		if (document.querySelector('video').playing) {
 			if (window.scrollY >= height + this.state.top) {
 				this.setState(
 					{
 						show: true,
-						currTime: el.currentTime,
+						currTime: node.currentTime,
 						popPlaying: true
 					},
 					() => {
-						el.pause();
+						node.pause();
 					}
 				);
 			}
@@ -85,8 +93,8 @@ class Video extends Component {
 					},
 					() => {
 						let el2 = document.getElementById('pop');
-						el.currentTime = el2.currentTime;
-						el.play();
+						node.currentTime = el2.currentTime;
+						node.play();
 					}
 				);
 			}
@@ -94,16 +102,40 @@ class Video extends Component {
 	};
 
 	handleChange = time => {
-		let el = document.getElementById('video-pop');
+		let node = this.Vid.current;
 		this.setState(
 			{
 				currTime: time
 			},
 			() => {
-				el.currentTime = this.state.currTime;
-				el.play();
+				node.currentTime = this.state.currTime;
+				node.play();
 			}
 		);
+	};
+
+	muteVids = () => {
+		let node = this.Vid.current;
+		let val = !this.state.mute;
+		this.setState(
+			{
+				mute: val
+			},
+			() => {
+				node.muted = this.state.mute;
+			}
+		);
+	};
+
+	playVids = () => {};
+
+	closeVids = time => {
+		let node = this.Vid.current;
+		node.currentTime = time;
+		this.setState({
+			show: false,
+			popPlaying: false
+		});
 	};
 
 	render() {
@@ -111,7 +143,13 @@ class Video extends Component {
 		return (
 			<React.Fragment>
 				<section id="vv">
-					<video id="video-pop" className="choose" controls src={Src} />
+					<video
+						ref={this.Vid}
+						id="video-pop"
+						className="choose"
+						controls
+						src={Src}
+					/>
 				</section>
 				{this.state.show ? (
 					<React.Fragment>
@@ -125,6 +163,9 @@ class Video extends Component {
 					Show={this.state.show}
 					currtime={this.state.currTime}
 					change={this.handleChange}
+					closeVid={this.closeVids}
+					muteVid={this.muteVids}
+					mute={this.state.mute}
 				/>
 			</React.Fragment>
 		);

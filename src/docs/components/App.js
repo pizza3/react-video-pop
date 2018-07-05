@@ -17,17 +17,15 @@ const Wrapper = styled.div`
 	overflow: hidden;
 	float: left;
 	margin-top: 13vh;
-	margin-left: 7%;
+	margin-left: calc((100% - 640px) / 2);
 `;
 
 export default class App extends Component {
-	state = {};
-
 	render() {
 		return (
 			<Title>
 				<Wrapper>
-					<Video Src={Scene} root="video-root" />
+					<Video Src={Scene} mute={true} root="video-root" />
 				</Wrapper>
 			</Title>
 		);

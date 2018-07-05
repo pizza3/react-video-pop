@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Img2 from './vectors/volumeOn.svg';
+import Img from './vectors/mute.svg';
 
 const Volume = props => {
 	let stylePause = {
@@ -22,9 +24,14 @@ const Volume = props => {
 	};
 	return (
 		<div style={stylePause} onClick={props.mute}>
-			<img src={Img2} style={imgStyle} />
+			<img src={props.iconState ? Img : Img2} style={imgStyle} />
 		</div>
 	);
 };
 
 export default Volume;
+
+Volume.propTypes = {
+	mute: PropTypes.func,
+	iconState: PropTypes.bool
+};

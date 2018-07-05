@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Controls from './Controls';
 export default class Pop extends Component {
@@ -8,10 +9,14 @@ export default class Pop extends Component {
 		active: false,
 		show: this.props.Show,
 		mouseOver: false,
-		mute: false,
+		mute: this.props.mute,
 		pos: {
 			x: 10,
 			y: 10
+		},
+		dimensions: {
+			w: 300,
+			h: 168
 		},
 		rest: {
 			x: window.innerWidth - (300 + 10),
@@ -21,27 +26,26 @@ export default class Pop extends Component {
 	};
 
 	componentDidMount() {
+		let el = document.getElementById('pop');
+		this.Pop = React.createRef();
 		this.handleEventListener();
+
+		if (this.state.mute) {
+			el.muted = true;
+		} else {
+			el.muted = false;
+		}
 		this.f, this.a, (this.v = { x: 0, y: 0 });
 		this.fScale, this.aScale, (this.vScale = 0);
 		this.renderAnimation();
 		this.setState({
 			active: true
 		});
-		Object.defineProperty(HTMLMediaElement.prototype, 'playingPop', {
-			get: function() {
-				return !!(
-					this.currentTime > 0 &&
-					!this.paused &&
-					!this.ended &&
-					this.readyState > 2
-				);
-			}
-		});
 	}
 
 	static getDerivedStateFromProps(props, state) {
 		let el = document.getElementById('pop');
+
 		if (props.currtime !== state.currtime) {
 			el.currentTime = props.currtime;
 			el.play();
@@ -50,19 +54,22 @@ export default class Pop extends Component {
 				show: props.Show
 			};
 		} else if (props.Show !== state.show) {
-			console.log('changed show');
-			// if (props.Show === true) {
-			// 	el.currentTime = props.currtime;
-			// 	el.play();
-			// 	return {
-			// 		show: props.Show
-			// 	};
-			// } else {
 			el.pause();
 			return {
 				show: props.Show
 			};
-			// }
+		} else if (props.mute !== state.mute) {
+			if (props.mute) {
+				el.muted = true;
+				return {
+					mute: props.mute
+				};
+			} else {
+				el.muted = false;
+				return {
+					mute: props.mute
+				};
+			}
 		}
 
 		return null;
@@ -78,6 +85,14 @@ export default class Pop extends Component {
 		this.pos = this.state.pos;
 		this.setState({
 			isDown: true
+		});
+	};
+
+	resizeDown = e => {
+		this.start = { x: e.clientX, y: e.clientY };
+		this.pos = this.state.pos;
+		this.setState({
+			resizeDown: true
 		});
 	};
 
@@ -176,30 +191,13 @@ export default class Pop extends Component {
 	};
 
 	handleMute = () => {
-		let el = document.getElementById('pop');
-		this.state.mute
-			? this.setState(
-				{
-					mute: false
-				},
-				() => {
-					video.muted = false;
-				}
-			  )
-			: this.setState(
-				{
-					mute: true
-				},
-				() => {
-					video.muted = true;
-				}
-			  );
+		this.props.muteVid();
 	};
 
 	handleScaleDown = () => {
-		this.setState({
-			show: false
-		});
+		let node = this.Pop.current;
+		let time = node.currentTime;
+		this.props.closeVid(time);
 	};
 
 	renderAnimation = () => {
@@ -219,8 +217,8 @@ export default class Pop extends Component {
 		const root = document.getElementById(this.props.root);
 		const style = {
 			position: 'fixed',
-			width: '300px',
-			height: '168px',
+			width: `${this.state.dimensions.w}px`,
+			height: `${this.state.dimensions.h}px`,
 			zIndex: '10',
 			borderRadius: '4px',
 			top: `${this.state.pos.y}px`,
@@ -232,14 +230,12 @@ export default class Pop extends Component {
 		};
 
 		const videoStyle = {
-			width: '300px',
-			height: '168px'
+			width: '100%',
+			height: '100%'
 		};
 		return ReactDOM.createPortal(
 			<div
 				style={style}
-				onMouseDown={this.handleDown}
-				onMouseUp={this.handleUp}
 				onMouseOver={() => {
 					this.setState({
 						mouseOver: true
@@ -252,6 +248,7 @@ export default class Pop extends Component {
 				}}
 			>
 				<video
+					ref={this.Pop}
 					id="pop"
 					width="300"
 					src={this.props.src}
@@ -259,12 +256,22 @@ export default class Pop extends Component {
 					className="pop"
 				/>
 				<Controls
+					onMouseDown={this.handleDown}
+					onMouseUp={this.handleUp}
 					show={this.state.mouseOver}
+					close={this.handleScaleDown}
 					mute={this.handleMute}
-					scale={this.handleScaleDown}
+					muteState={this.state.mute}
 				/>
 			</div>,
 			root
 		);
 	}
 }
+
+Pop.propTypes = {
+	Show: PropTypes.bool,
+	src: PropTypes.string.isRequired,
+	closeVid: PropTypes.func,
+	root: PropTypes.string.isRequired
+};
