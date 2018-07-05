@@ -57,28 +57,24 @@ var Video = function (_Component) {
 			show: true,
 			top: null,
 			currTime: null,
-			popPlaying: false
+			popPlaying: false,
+			mute: _this.props.mute
 		}, _this.setEventListeners = function () {
 			window.addEventListener('scroll', _this.handleScroll);
 		}, _this.handleScroll = function () {
-			var el = document.getElementById('video-pop');
-			var elProperty = el.getBoundingClientRect();
-			var height = elProperty.height * 80 / 100;
+			var node = _this.Vid.current;
+			var property = node.getBoundingClientRect();
+			var height = property.height * 80 / 100;
 			if (document.querySelector('video').playing) {
 				if (window.scrollY >= height + _this.state.top) {
 					_this.setState({
 						show: true,
-						currTime: el.currentTime,
+						currTime: node.currentTime,
 						popPlaying: true
 					}, function () {
-						el.pause();
+						node.pause();
 					});
 				}
-				// else {
-				// 	this.setState({
-				// 		popPlaying: false
-				// 	});
-				// }
 			}
 
 			if (_this.state.popPlaying) {
@@ -88,18 +84,33 @@ var Video = function (_Component) {
 						popPlaying: false
 					}, function () {
 						var el2 = document.getElementById('pop');
-						el.currentTime = el2.currentTime;
-						el.play();
+						node.currentTime = el2.currentTime;
+						node.play();
 					});
 				}
 			}
 		}, _this.handleChange = function (time) {
-			var el = document.getElementById('video-pop');
+			var node = _this.Vid.current;
 			_this.setState({
 				currTime: time
 			}, function () {
-				el.currentTime = _this.state.currTime;
-				el.play();
+				node.currentTime = _this.state.currTime;
+				node.play();
+			});
+		}, _this.muteVids = function () {
+			var node = _this.Vid.current;
+			var val = !_this.state.mute;
+			_this.setState({
+				mute: val
+			}, function () {
+				node.muted = _this.state.mute;
+			});
+		}, _this.playVids = function () {}, _this.closeVids = function (time) {
+			var node = _this.Vid.current;
+			node.currentTime = time;
+			_this.setState({
+				show: false,
+				popPlaying: false
 			});
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
@@ -107,8 +118,15 @@ var Video = function (_Component) {
 	_createClass(Video, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			this.Vid = _react2.default.createRef();
+			var node = this.Vid.current;
+			var el = document.getElementById('video-pop');
 			this.setEventListeners();
-			var el = document.getElementById('video-pop').getBoundingClientRect();
+			if (this.state.mute) {
+				el.muted = true;
+			} else {
+				el.muted = false;
+			}
 			this.setState({
 				top: ~~(window.scrollY + el.top)
 			});
@@ -131,7 +149,13 @@ var Video = function (_Component) {
 				_react2.default.createElement(
 					'section',
 					{ id: 'vv' },
-					_react2.default.createElement('video', { id: 'video-pop', className: 'choose', controls: true, src: Src })
+					_react2.default.createElement('video', {
+						ref: this.Vid,
+						id: 'video-pop',
+						className: 'choose',
+						controls: true,
+						src: Src
+					})
 				),
 				this.state.show ? _react2.default.createElement(
 					_react2.default.Fragment,
@@ -148,7 +172,10 @@ var Video = function (_Component) {
 					root: root,
 					Show: this.state.show,
 					currtime: this.state.currTime,
-					change: this.handleChange
+					change: this.handleChange,
+					closeVid: this.closeVids,
+					muteVid: this.muteVids,
+					mute: this.state.mute
 				})
 			);
 		}

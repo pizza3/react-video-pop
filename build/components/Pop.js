@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -45,9 +49,15 @@ var Pop = function (_Component) {
 			isDown: false,
 			active: false,
 			show: _this.props.Show,
+			mouseOver: false,
+			mute: _this.props.mute,
 			pos: {
 				x: 10,
 				y: 10
+			},
+			dimensions: {
+				w: 300,
+				h: 168
 			},
 			rest: {
 				x: window.innerWidth - (300 + 10),
@@ -62,6 +72,12 @@ var Pop = function (_Component) {
 			_this.pos = _this.state.pos;
 			_this.setState({
 				isDown: true
+			});
+		}, _this.resizeDown = function (e) {
+			_this.start = { x: e.clientX, y: e.clientY };
+			_this.pos = _this.state.pos;
+			_this.setState({
+				resizeDown: true
 			});
 		}, _this.handleMove = function (e) {
 			if (_this.state.isDown) {
@@ -133,7 +149,7 @@ var Pop = function (_Component) {
 				}
 			});
 		}, _this.handleScale = function (rest) {
-			var mass = 0.5;
+			var mass = 0.9;
 			var damping = 0.6;
 			_this.fScale = -0.2 * (_this.state.scale - rest);
 			_this.aScale = _this.fScale / mass;
@@ -141,6 +157,12 @@ var Pop = function (_Component) {
 			_this.setState({
 				scale: _this.state.scale + _this.vScale
 			});
+		}, _this.handleMute = function () {
+			_this.props.muteVid();
+		}, _this.handleScaleDown = function () {
+			var node = _this.Pop.current;
+			var time = node.currentTime;
+			_this.props.closeVid(time);
 		}, _this.renderAnimation = function () {
 			if (!_this.state.isDown) {
 				_this.handleUpdate();
@@ -158,29 +180,32 @@ var Pop = function (_Component) {
 	_createClass(Pop, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			var el = document.getElementById('pop');
+			this.Pop = _react2.default.createRef();
 			this.handleEventListener();
+
+			if (this.state.mute) {
+				el.muted = true;
+			} else {
+				el.muted = false;
+			}
 			this.f, this.a, this.v = { x: 0, y: 0 };
 			this.fScale, this.aScale, this.vScale = 0;
 			this.renderAnimation();
 			this.setState({
 				active: true
 			});
-			Object.defineProperty(HTMLMediaElement.prototype, 'playingPop', {
-				get: function get() {
-					return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
-				}
-			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			var root = document.getElementById(this.props.root);
-			var videoStyle = {
-				position: 'absolute',
-				borderRadius: '4px'
-			};
 			var style = {
 				position: 'fixed',
+				width: this.state.dimensions.w + 'px',
+				height: this.state.dimensions.h + 'px',
 				zIndex: '10',
 				borderRadius: '4px',
 				top: this.state.pos.y + 'px',
@@ -190,43 +215,71 @@ var Pop = function (_Component) {
 				transform: 'scale(' + this.state.scale + ')',
 				overflow: 'hidden'
 			};
+
+			var videoStyle = {
+				width: '100%',
+				height: '100%'
+			};
 			return _reactDom2.default.createPortal(_react2.default.createElement(
 				'div',
-				{ style: style },
+				{
+					style: style,
+					onMouseOver: function onMouseOver() {
+						_this2.setState({
+							mouseOver: true
+						});
+					},
+					onMouseLeave: function onMouseLeave() {
+						_this2.setState({
+							mouseOver: false
+						});
+					}
+				},
 				_react2.default.createElement('video', {
+					ref: this.Pop,
 					id: 'pop',
 					width: '300',
 					src: this.props.src,
 					style: videoStyle,
-					className: 'pop',
-					onMouseDown: this.handleDown,
-					onMouseUp: this.handleUp
+					className: 'pop'
 				}),
-				_react2.default.createElement(_Controls2.default, null)
+				_react2.default.createElement(_Controls2.default, {
+					onMouseDown: this.handleDown,
+					onMouseUp: this.handleUp,
+					show: this.state.mouseOver,
+					close: this.handleScaleDown,
+					mute: this.handleMute,
+					muteState: this.state.mute
+				})
 			), root);
 		}
 	}], [{
 		key: 'getDerivedStateFromProps',
 		value: function getDerivedStateFromProps(props, state) {
 			var el = document.getElementById('pop');
+
 			if (props.currtime !== state.currtime) {
 				el.currentTime = props.currtime;
 				el.play();
 				return {
-					currtime: props.currtime
+					currtime: props.currtime,
+					show: props.Show
 				};
-			}
-			if (props.Show !== state.show) {
-				if (props.Show === true) {
-					el.currentTime = props.currtime;
-					el.play();
+			} else if (props.Show !== state.show) {
+				el.pause();
+				return {
+					show: props.Show
+				};
+			} else if (props.mute !== state.mute) {
+				if (props.mute) {
+					el.muted = true;
 					return {
-						show: props.Show
+						mute: props.mute
 					};
 				} else {
-					el.pause();
+					el.muted = false;
 					return {
-						show: props.Show
+						mute: props.mute
 					};
 				}
 			}
@@ -239,3 +292,11 @@ var Pop = function (_Component) {
 }(_react.Component);
 
 exports.default = Pop;
+
+
+Pop.propTypes = {
+	Show: _propTypes2.default.bool,
+	src: _propTypes2.default.string.isRequired,
+	closeVid: _propTypes2.default.func,
+	root: _propTypes2.default.string.isRequired
+};
