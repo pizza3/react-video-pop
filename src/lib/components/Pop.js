@@ -271,7 +271,7 @@ export default class Pop extends Component {
 
 Pop.propTypes = {
 	Show: PropTypes.bool,
-	src: PropTypes.string.isRequired,
+	src: PropTypes.string,
 	closeVid: PropTypes.func,
-	root: PropTypes.string.isRequired
+	root: PropTypes.string
 };

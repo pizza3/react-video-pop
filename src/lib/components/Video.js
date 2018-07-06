@@ -29,22 +29,30 @@ const HideText = styled.div`
 
 class Video extends Component {
 	state = {
-		show: true,
+		show: false,
 		top: null,
 		currTime: null,
 		popPlaying: false,
-		mute: this.props.mute
+		mute: this.props.mute,
+		Vid: React.createRef()
+	};
+
+	static defaultProps = {
+		Src: null,
+		root: null,
+		Poster: null,
+		mute: false
 	};
 
 	componentDidMount() {
-		this.Vid = React.createRef();
-		let node = this.Vid.current;
+		// this.Vid = React.createRef();
+		let node = this.state.Vid.current;
 		let el = document.getElementById('video-pop');
 		this.setEventListeners();
 		if (this.state.mute) {
-			el.muted = true;
+			node.muted = true;
 		} else {
-			el.muted = false;
+			node.muted = false;
 		}
 		this.setState({
 			top: ~~(window.scrollY + el.top)
@@ -139,16 +147,17 @@ class Video extends Component {
 	};
 
 	render() {
-		const { Src, root } = this.props;
+		const { Src, root, Poster } = this.props;
 		return (
 			<React.Fragment>
 				<section id="vv">
 					<video
-						ref={this.Vid}
+						ref={this.state.Vid}
 						id="video-pop"
 						className="choose"
 						controls
 						src={Src}
+						poster={Poster}
 					/>
 				</section>
 				{this.state.show ? (
@@ -175,6 +184,7 @@ class Video extends Component {
 export default Video;
 
 Video.propTypes = {
-	Src: PropTypes.string.isRequired,
-	root: PropTypes.string.isRequired
+	Src: PropTypes.string,
+	root: PropTypes.string,
+	Poster: PropTypes.string
 };

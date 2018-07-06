@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Img2 from './vectors/pause.svg';
-import Img from './vectors/play.svg';
 
 const Pause = () => {
 	let stylePause = {

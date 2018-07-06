@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules #Cache node_modules for faster builds
+script:
+  - npm test #Runs Tests
+  - npm run build #Creats a production build
