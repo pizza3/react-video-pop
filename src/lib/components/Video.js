@@ -1,32 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Pop from './Pop';
-const Hide = styled.div`
-	width: 100%;
-	height: 100%;
-	background: #2b2b2b;
-	position: absolute;
-	top: 0;
-	opacity: 0.8;
-`;
-
-const HideText = styled.div`
-	position: absolute;
-	color: #fff;
-	font-family: sans-serif;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 19px;
-	margin-top: auto;
-	margin-bottom: auto;
-	font-weight: 100;
-	font-size: 28px;
-	text-shadow: 1px 1px #0a0a0a;
-`;
-
+import Overlay from './Overlay';
 class Video extends Component {
 	state = {
 		show: false,
@@ -45,9 +20,7 @@ class Video extends Component {
 	};
 
 	componentDidMount() {
-		// this.Vid = React.createRef();
 		let node = this.state.Vid.current;
-		let el = document.getElementById('video-pop');
 		this.setEventListeners();
 		if (this.state.mute) {
 			node.muted = true;
@@ -55,7 +28,7 @@ class Video extends Component {
 			node.muted = false;
 		}
 		this.setState({
-			top: ~~(window.scrollY + el.top)
+			top: ~~(window.scrollY + node.top)
 		});
 		Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
 			get: function() {
@@ -110,7 +83,7 @@ class Video extends Component {
 	};
 
 	handleChange = time => {
-		let node = this.Vid.current;
+		let node = this.state.Vid.current;
 		this.setState(
 			{
 				currTime: time
@@ -123,7 +96,7 @@ class Video extends Component {
 	};
 
 	muteVids = () => {
-		let node = this.Vid.current;
+		let node = this.state.Vid.current;
 		let val = !this.state.mute;
 		this.setState(
 			{
@@ -138,7 +111,7 @@ class Video extends Component {
 	playVids = () => {};
 
 	closeVids = time => {
-		let node = this.Vid.current;
+		let node = this.state.Vid.current;
 		node.currentTime = time;
 		this.setState({
 			show: false,
@@ -158,12 +131,7 @@ class Video extends Component {
 					src={Src}
 					poster={Poster}
 				/>
-				{this.state.show ? (
-					<React.Fragment>
-						<Hide />
-						<HideText>Floating Video Active</HideText>
-					</React.Fragment>
-				) : null}
+				{this.state.show ? <Overlay /> : null}
 				<Pop
 					src={Src}
 					root={root}
@@ -184,5 +152,6 @@ export default Video;
 Video.propTypes = {
 	Src: PropTypes.string,
 	root: PropTypes.string,
-	Poster: PropTypes.string
+	Poster: PropTypes.string,
+	mute: PropTypes.bool
 };

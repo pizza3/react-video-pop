@@ -10,11 +10,6 @@
 		"lib": "babel src/lib -d build --copy-files",
 		"lib:watch": "babel src/lib -w -d build --copy-files"
 	},
-	"jest": {
-		"moduleNameMapper": {
-			"\\.(css|jpg|png|svg)$": "<rootDir>/empty-module.js"
-		}
-	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/pizza3/react-video.git"
