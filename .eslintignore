@@ -1,0 +1,4 @@
+/build
+/docs
+/__tests__
+webpack.config.js

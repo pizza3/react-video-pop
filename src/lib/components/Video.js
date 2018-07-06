@@ -74,7 +74,7 @@ class Video extends Component {
 	};
 
 	handleScroll = () => {
-		let node = this.Vid.current;
+		let node = this.state.Vid.current;
 		let property = node.getBoundingClientRect();
 		let height = (property.height * 80) / 100;
 		if (document.querySelector('video').playing) {
@@ -150,16 +150,14 @@ class Video extends Component {
 		const { Src, root, Poster } = this.props;
 		return (
 			<React.Fragment>
-				<section id="vv">
-					<video
-						ref={this.state.Vid}
-						id="video-pop"
-						className="choose"
-						controls
-						src={Src}
-						poster={Poster}
-					/>
-				</section>
+				<video
+					ref={this.state.Vid}
+					id="video-pop"
+					className="choose"
+					controls
+					src={Src}
+					poster={Poster}
+				/>
 				{this.state.show ? (
 					<React.Fragment>
 						<Hide />
