@@ -6,4 +6,4 @@ cache:
   - node_modules #Cache node_modules for faster builds
 script:
   - npm test #Runs Tests
-  - npm run build #Creats a production build
+  - npm run lib #Creats a production build

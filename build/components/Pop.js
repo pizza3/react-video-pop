@@ -296,7 +296,7 @@ exports.default = Pop;
 
 Pop.propTypes = {
 	Show: _propTypes2.default.bool,
-	src: _propTypes2.default.string.isRequired,
+	src: _propTypes2.default.string,
 	closeVid: _propTypes2.default.func,
-	root: _propTypes2.default.string.isRequired
+	root: _propTypes2.default.string
 };

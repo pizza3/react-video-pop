@@ -54,11 +54,12 @@ var Video = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Video.__proto__ || Object.getPrototypeOf(Video)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-			show: true,
+			show: false,
 			top: null,
 			currTime: null,
 			popPlaying: false,
-			mute: _this.props.mute
+			mute: _this.props.mute,
+			Vid: _react2.default.createRef()
 		}, _this.setEventListeners = function () {
 			window.addEventListener('scroll', _this.handleScroll);
 		}, _this.handleScroll = function () {
@@ -118,14 +119,14 @@ var Video = function (_Component) {
 	_createClass(Video, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.Vid = _react2.default.createRef();
-			var node = this.Vid.current;
+			// this.Vid = React.createRef();
+			var node = this.state.Vid.current;
 			var el = document.getElementById('video-pop');
 			this.setEventListeners();
 			if (this.state.mute) {
-				el.muted = true;
+				node.muted = true;
 			} else {
-				el.muted = false;
+				node.muted = false;
 			}
 			this.setState({
 				top: ~~(window.scrollY + el.top)
@@ -141,7 +142,8 @@ var Video = function (_Component) {
 		value: function render() {
 			var _props = this.props,
 			    Src = _props.Src,
-			    root = _props.root;
+			    root = _props.root,
+			    Poster = _props.Poster;
 
 			return _react2.default.createElement(
 				_react2.default.Fragment,
@@ -150,11 +152,12 @@ var Video = function (_Component) {
 					'section',
 					{ id: 'vv' },
 					_react2.default.createElement('video', {
-						ref: this.Vid,
+						ref: this.state.Vid,
 						id: 'video-pop',
 						className: 'choose',
 						controls: true,
-						src: Src
+						src: Src,
+						poster: Poster
 					})
 				),
 				this.state.show ? _react2.default.createElement(
@@ -184,10 +187,17 @@ var Video = function (_Component) {
 	return Video;
 }(_react.Component);
 
+Video.defaultProps = {
+	Src: null,
+	root: null,
+	Poster: null,
+	mute: false
+};
 exports.default = Video;
 
 
 Video.propTypes = {
-	Src: _propTypes2.default.string.isRequired,
-	root: _propTypes2.default.string.isRequired
+	Src: _propTypes2.default.string,
+	root: _propTypes2.default.string,
+	Poster: _propTypes2.default.string
 };
