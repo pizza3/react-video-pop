@@ -44,7 +44,7 @@ class Controls extends Component {
 					onMouseUp={this.props.onMouseUp}
 				/>
 				<Close close={this.props.close} />
-				<Pause />
+				<Pause play={this.props.play} iconState={this.props.playState} />
 				<Volume mute={this.props.mute} iconState={this.props.muteState} />
 				<div style={resizeStyle} />
 			</div>
@@ -56,9 +56,11 @@ export default Controls;
 
 Controls.propTypes = {
 	show: PropTypes.bool,
+	play: PropTypes.bool,
+	mute: PropTypes.bool,
 	onMouseDown: PropTypes.func,
 	onMouseUp: PropTypes.func,
 	close: PropTypes.func,
-	mute: PropTypes.func,
-	muteState: PropTypes.bool
+	muteState: PropTypes.bool,
+	playState: PropTypes.bool
 };

@@ -8,6 +8,7 @@ class Video extends Component {
 		top: null,
 		currTime: null,
 		popPlaying: false,
+		play: false,
 		mute: this.props.mute,
 		Vid: React.createRef()
 	};
@@ -20,13 +21,15 @@ class Video extends Component {
 	};
 
 	componentDidMount() {
-		let node = this.state.Vid.current;
+		// const modalRoot = global.document.createElement('div');
+		// modalRoot.setAttribute('id', 'video-root');
+		// const body = global.document.querySelector('body');
+		// body.appendChild(modalRoot);
+
+		const node = this.state.Vid.current;
 		this.setEventListeners();
-		if (this.state.mute) {
-			node.muted = true;
-		} else {
-			node.muted = false;
-		}
+		this.state.mute ? (node.muted = true) : (node.muted = false);
+
 		this.setState({
 			top: ~~(window.scrollY + node.top)
 		});
@@ -47,16 +50,17 @@ class Video extends Component {
 	};
 
 	handleScroll = () => {
-		let node = this.state.Vid.current;
-		let property = node.getBoundingClientRect();
-		let height = (property.height * 80) / 100;
+		const node = this.state.Vid.current;
+		const property = node.getBoundingClientRect();
+		const height = (property.height * 80) / 100;
 		if (document.querySelector('video').playing) {
 			if (window.scrollY >= height + this.state.top) {
 				this.setState(
 					{
 						show: true,
 						currTime: node.currentTime,
-						popPlaying: true
+						popPlaying: true,
+						mute: node.muted
 					},
 					() => {
 						node.pause();
@@ -83,7 +87,7 @@ class Video extends Component {
 	};
 
 	handleChange = time => {
-		let node = this.state.Vid.current;
+		const node = this.state.Vid.current;
 		this.setState(
 			{
 				currTime: time
@@ -96,8 +100,8 @@ class Video extends Component {
 	};
 
 	muteVids = () => {
-		let node = this.state.Vid.current;
-		let val = !this.state.mute;
+		const node = this.state.Vid.current;
+		const val = !this.state.mute;
 		this.setState(
 			{
 				mute: val
@@ -108,10 +112,24 @@ class Video extends Component {
 		);
 	};
 
-	playVids = () => {};
+	playVids = () => {
+		const node = this.state.Vid.current;
+		const val = !this.state.play;
+		this.setState(
+			{
+				play: val,
+				popPlaying: val
+			},
+			() => {
+				if (!this.state.popPlaying) {
+					this.state.play ? node.pause() : node.play();
+				}
+			}
+		);
+	};
 
 	closeVids = time => {
-		let node = this.state.Vid.current;
+		const node = this.state.Vid.current;
 		node.currentTime = time;
 		this.setState({
 			show: false,
@@ -121,26 +139,29 @@ class Video extends Component {
 
 	render() {
 		const { Src, root, Poster } = this.props;
+		const { Vid, show, currTime, mute, play } = this.state;
 		return (
 			<React.Fragment>
 				<video
-					ref={this.state.Vid}
+					ref={Vid}
 					id="video-pop"
 					className="choose"
 					controls
 					src={Src}
 					poster={Poster}
 				/>
-				{this.state.show ? <Overlay /> : null}
+				{show ? <Overlay /> : null}
 				<Pop
 					src={Src}
-					root={root}
-					Show={this.state.show}
-					currtime={this.state.currTime}
+					root={'video-root'}
+					Show={show}
+					currtime={currTime}
 					change={this.handleChange}
 					closeVid={this.closeVids}
 					muteVid={this.muteVids}
-					mute={this.state.mute}
+					playVid={this.playVids}
+					mute={mute}
+					play={play}
 				/>
 			</React.Fragment>
 		);

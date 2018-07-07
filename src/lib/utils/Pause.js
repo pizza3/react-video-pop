@@ -1,7 +1,8 @@
 import React from 'react';
+import Img from './vectors/play.svg';
 import Img2 from './vectors/pause.svg';
 
-const Pause = () => {
+const Pause = props => {
 	let stylePause = {
 		position: 'absolute',
 		top: '70%',
@@ -21,8 +22,8 @@ const Pause = () => {
 		marginLeft: '9px'
 	};
 	return (
-		<div style={stylePause}>
-			<img src={Img2} style={imgStyle} />
+		<div style={stylePause} onClick={props.play}>
+			<img src={props.iconState ? Img2 : Img} style={imgStyle} />
 		</div>
 	);
 };

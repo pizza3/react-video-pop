@@ -25,16 +25,7 @@ export default class App extends Component {
 		return (
 			<Title>
 				<Wrapper>
-					<Video
-						Src={
-							'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'
-						}
-						Poster={
-							'https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217'
-						}
-						mute={true}
-						root="video-root"
-					/>
+					<Video Src={Scene} mute={true} root="video-root" />
 				</Wrapper>
 			</Title>
 		);

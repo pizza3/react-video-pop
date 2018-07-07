@@ -10,6 +10,7 @@ export default class Pop extends Component {
 		show: this.props.Show,
 		mouseOver: false,
 		mute: this.props.mute,
+		play: this.props.play,
 		pos: {
 			x: 10,
 			y: 10
@@ -22,18 +23,18 @@ export default class Pop extends Component {
 			x: window.innerWidth - (300 + 10),
 			y: window.innerHeight - (168 + 10)
 		},
-		scale: 0
+		scale: 0,
+		Pop: React.createRef()
 	};
 
 	componentDidMount() {
-		let el = document.getElementById('pop');
-		this.Pop = React.createRef();
+		// let el = document.getElementById('pop');
+		let node = this.state.Pop.current;
 		this.handleEventListener();
-
 		if (this.state.mute) {
-			el.muted = true;
+			node.muted = true;
 		} else {
-			el.muted = false;
+			node.muted = false;
 		}
 		this.f, this.a, (this.v = { x: 0, y: 0 });
 		this.fScale, this.aScale, (this.vScale = 0);
@@ -44,30 +45,41 @@ export default class Pop extends Component {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		let el = document.getElementById('pop');
-
+		let node = state.Pop.current;
 		if (props.currtime !== state.currtime) {
-			el.currentTime = props.currtime;
-			el.play();
+			node.currentTime = props.currtime;
+			node.play();
 			return {
 				currtime: props.currtime,
 				show: props.Show
 			};
 		} else if (props.Show !== state.show) {
-			el.pause();
+			node.pause();
 			return {
 				show: props.Show
 			};
 		} else if (props.mute !== state.mute) {
 			if (props.mute) {
-				el.muted = true;
+				node.muted = true;
 				return {
 					mute: props.mute
 				};
 			} else {
-				el.muted = false;
+				node.muted = false;
 				return {
 					mute: props.mute
+				};
+			}
+		} else if (props.play !== state.play) {
+			if (props.play) {
+				node.play();
+				return {
+					play: props.play
+				};
+			} else {
+				node.pause();
+				return {
+					play: props.play
 				};
 			}
 		}
@@ -98,9 +110,8 @@ export default class Pop extends Component {
 
 	handleMove = e => {
 		if (this.state.isDown) {
-			let { width, height } = document
-				.getElementById('pop')
-				.getBoundingClientRect();
+			let node = this.state.Pop.current;
+			let { width, height } = node.getBoundingClientRect();
 			let xdiff = -(this.start.x - e.clientX) + this.pos.x;
 			let ydiff = -(this.start.y - e.clientY) + this.pos.y;
 			this.setState({
@@ -194,8 +205,12 @@ export default class Pop extends Component {
 		this.props.muteVid();
 	};
 
+	handlePlay = () => {
+		this.props.playVid();
+	};
+
 	handleScaleDown = () => {
-		let node = this.Pop.current;
+		let node = this.state.Pop.current;
 		let time = node.currentTime;
 		this.props.closeVid(time);
 	};
@@ -248,7 +263,7 @@ export default class Pop extends Component {
 				}}
 			>
 				<video
-					ref={this.Pop}
+					ref={this.state.Pop}
 					id="pop"
 					width="300"
 					src={this.props.src}
@@ -261,7 +276,9 @@ export default class Pop extends Component {
 					show={this.state.mouseOver}
 					close={this.handleScaleDown}
 					mute={this.handleMute}
+					play={this.handlePlay}
 					muteState={this.state.mute}
+					playState={this.state.play}
 				/>
 			</div>,
 			root
@@ -271,7 +288,11 @@ export default class Pop extends Component {
 
 Pop.propTypes = {
 	Show: PropTypes.bool,
+	mute: PropTypes.bool,
+	play: PropTypes.bool,
 	src: PropTypes.string,
 	closeVid: PropTypes.func,
+	muteVid: PropTypes.func,
+	playVid: PropTypes.func,
 	root: PropTypes.string
 };
