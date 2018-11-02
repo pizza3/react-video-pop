@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Scene from '../assets/devstories.webm';
-import Video from '../../lib/index';
+import VideoPop from '../../lib/index';
 import styled from 'styled-components';
 const Title = styled.div`
 	position: relative;
@@ -25,7 +25,7 @@ export default class App extends Component {
 		return (
 			<Title>
 				<Wrapper>
-					<Video Src={Scene} mute={true} root="video-root" />
+					<VideoPop Src={Scene} mute={true} root="video-root" />
 				</Wrapper>
 			</Title>
 		);

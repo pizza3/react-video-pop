@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pop from './Pop';
 import Overlay from './Overlay';
-class Video extends Component {
+class VideoPop extends Component {
 	state = {
 		show: false,
 		top: null,
@@ -168,9 +168,9 @@ class Video extends Component {
 	}
 }
 
-export default Video;
+export default VideoPop;
 
-Video.propTypes = {
+VideoPop.propTypes = {
 	Src: PropTypes.string,
 	root: PropTypes.string,
 	Poster: PropTypes.string,
