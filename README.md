@@ -35,7 +35,7 @@ export default class App extends Component {
 | src             | Required. A unique string to identify the component.                                                                         |      string         |
 | mute        | mute the video before render.                                                                                                       | boolean         |
 | duration       | Video duration (in  seconds).                                                                                                        | 0           |
-
+| root       | root element id (the portal div id attritube)                                                                                            | 0           |
 
 ## How does it work
 
