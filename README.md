@@ -27,6 +27,21 @@ export default class App extends Component {
 }
 
 ```
+
+##API
+| Prop           | Description                                                                                                                  | Default Value |
+|----------------|------------------------------------------------------------------------------------------------------------------------------|---------------|
+| src             | Required. Video asset location.                                                                         
+    |          null     |
+| mute        | Mutes the video before start.                                                                                                       | false         |
+| duration       | Video start duration.                                                                                        
+    | 200           |
+| root       | Video start duration.                                                                                        
+    | video-root           |
+
+
+##How does it work
+
 ## Development
 
 In source folder:
