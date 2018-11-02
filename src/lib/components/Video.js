@@ -122,7 +122,7 @@ class VideoPop extends Component {
 			},
 			() => {
 				if (!this.state.popPlaying) {
-					this.state.play ? node.pause() : node.play();
+					this.state.play ? node.play() : node.pause();
 				}
 			}
 		);

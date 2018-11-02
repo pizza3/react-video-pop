@@ -54,6 +54,7 @@ export default class App extends Component {
 | mute        | mute the video before render.                                                                                                       | boolean         |
 | duration       | Video duration (in  seconds).                                                                                                        | 0           |
 | root       | root element id (the portal div id attritube)                                                                                            | string           |
+| overlay       | display's an message over the current video                                                                                           | Floating Video Active           |
 
 ## How does it work
 

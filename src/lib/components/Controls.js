@@ -26,16 +26,6 @@ class Controls extends Component {
 			left: '0'
 		};
 
-		let resizeStyle = {
-			position: 'absolute',
-			width: '10px',
-			height: '10px',
-			top: '0',
-			left: '0',
-			background: '#fff',
-			cursor: 'nwse-resize'
-		};
-
 		return (
 			<div style={style}>
 				<div
@@ -46,7 +36,6 @@ class Controls extends Component {
 				<Close close={this.props.close} />
 				<Pause play={this.props.play} iconState={this.props.playState} />
 				<Volume mute={this.props.mute} iconState={this.props.muteState} />
-				<div style={resizeStyle} />
 			</div>
 		);
 	}

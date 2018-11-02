@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Img from './vectors/play.svg';
 import Img2 from './vectors/pause.svg';
 
@@ -23,9 +24,14 @@ const Pause = props => {
 	};
 	return (
 		<div style={stylePause} onClick={props.play}>
-			<img src={props.iconState ? Img2 : Img} style={imgStyle} />
+			<img src={props.iconState ? Img : Img2} style={imgStyle} />
 		</div>
 	);
 };
+
+Pause.propTypes = {
+	iconState: PropTypes.bool
+};
+
 
 export default Pause;
