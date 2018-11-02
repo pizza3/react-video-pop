@@ -20,12 +20,19 @@ const Wrapper = styled.div`
 	margin-left: calc((100% - 640px) / 2);
 `;
 
+const Comp = ()=>{
+	return(
+		<div>
+			<VideoPop Src={Scene} mute={true} root="video-root" />
+		</div>
+	);
+};
 export default class App extends Component {
 	render() {
 		return (
 			<Title>
 				<Wrapper>
-					<VideoPop Src={Scene} mute={true} root="video-root" />
+					<Comp/>
 				</Wrapper>
 			</Title>
 		);
