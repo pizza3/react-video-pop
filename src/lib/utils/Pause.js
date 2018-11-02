@@ -30,7 +30,8 @@ const Pause = props => {
 };
 
 Pause.propTypes = {
-	iconState: PropTypes.bool
+	iconState: PropTypes.bool,
+	play: PropTypes.func
 };
 
 

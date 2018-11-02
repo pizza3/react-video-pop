@@ -276,7 +276,7 @@ export default class Pop extends Component {
 					show={this.state.mouseOver}
 					close={this.handleScaleDown}
 					mute={this.handleMute}
-					play={this.handlePlay}
+					play={ this.props.playVid}
 					muteState={this.state.mute}
 					playState={this.state.play}
 				/>
