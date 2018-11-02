@@ -49,7 +49,7 @@ export default class App extends Component {
 ## API
 
 | Prop          | Description   | Type  |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:|:-----:|
 | src           | Required. A unique string to identify the component. | string |
 | mute          | mute the video before render.      | boolean |
 | duration      | Video duration (in seconds).       | int |
