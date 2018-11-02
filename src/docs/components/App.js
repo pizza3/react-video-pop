@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 const Comp = ()=>{
 	return(
 		<div>
-			<VideoPop Src={Scene} mute={false} root="video-root" />
+			<VideoPop Src={Scene} mute={true} autoplay={true} root="video-root" />
 		</div>
 	);
 };

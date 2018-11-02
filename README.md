@@ -39,7 +39,7 @@ import VideoPop from 'react-video-pop';
 export default class App extends Component {
 	render() {
 		return (
-            <VideoPop Src={Scene} mute={true} root="video-root" />
+            <VideoPop Src={Scene} mute={true} autoplay={true} root="video-root" />
 		);
 	}
 }
@@ -51,7 +51,7 @@ export default class App extends Component {
 | Prop          | Description   | Type  | Default Value |
 | ------------- |:-------------|:-----:|:-----|
 | src           | Required. A unique string to identify the component. | string  | null  |
-| play          | play the video on render .                           | boolean | true  |
+| autoplay      | autoplay the video on render.                        | boolean | true  |
 | mute          | mute the video before render.                        | boolean | false |
 | duration      | Video duration (in seconds).                         | int     | 0     |
 | root          | Portal div element id attribute                      | string  | null  |

@@ -24,7 +24,7 @@ const Pause = props => {
 	};
 	return (
 		<div style={stylePause} onClick={props.play}>
-			<img src={props.iconState ? Img : Img2} style={imgStyle} />
+			<img src={props.iconState ? Img2 : Img} style={imgStyle} />
 		</div>
 	);
 };

@@ -8,7 +8,7 @@ class VideoPop extends Component {
 		top: null,
 		currTime: null,
 		popPlaying: false,
-		play: false,
+		play: this.props.autoplay,
 		mute: this.props.mute,
 		Vid: React.createRef()
 	};
@@ -17,19 +17,15 @@ class VideoPop extends Component {
 		Src: null,
 		root: null,
 		Poster: null,
-		mute: false
+		mute: false,
+		autoplay:true
 	};
 
 	componentDidMount() {
-		// const modalRoot = global.document.createElement('div');
-		// modalRoot.setAttribute('id', 'video-root');
-		// const body = global.document.querySelector('body');
-		// body.appendChild(modalRoot);
-
 		const node = this.state.Vid.current;
 		this.setEventListeners();
 		this.state.mute ? (node.muted = true) : (node.muted = false);
-
+		this.state.play ? (node.play()):(node.pause());
 		this.setState({
 			top: ~~(window.scrollY + node.top)
 		});
@@ -60,6 +56,7 @@ class VideoPop extends Component {
 						show: true,
 						currTime: node.currentTime,
 						popPlaying: true,
+						play:document.querySelector('video').playing,
 						mute: node.muted
 					},
 					() => {
@@ -153,7 +150,7 @@ class VideoPop extends Component {
 				{show ? <Overlay /> : null}
 				<Pop
 					src={Src}
-					root={'video-root'}
+					root={root}
 					Show={show}
 					currtime={currTime}
 					change={this.handleChange}
@@ -174,5 +171,6 @@ VideoPop.propTypes = {
 	Src: PropTypes.string,
 	root: PropTypes.string,
 	Poster: PropTypes.string,
-	mute: PropTypes.bool
+	mute: PropTypes.bool,
+	autoplay:PropTypes.bool
 };

@@ -72,16 +72,6 @@ var Controls = function (_Component) {
 				left: '0'
 			};
 
-			var resizeStyle = {
-				position: 'absolute',
-				width: '10px',
-				height: '10px',
-				top: '0',
-				left: '0',
-				background: '#fff',
-				cursor: 'nwse-resize'
-			};
-
 			return _react2.default.createElement(
 				'div',
 				{ style: style },
@@ -91,9 +81,8 @@ var Controls = function (_Component) {
 					onMouseUp: this.props.onMouseUp
 				}),
 				_react2.default.createElement(_Close2.default, { close: this.props.close }),
-				_react2.default.createElement(_Pause2.default, null),
-				_react2.default.createElement(_Volume2.default, { mute: this.props.mute, iconState: this.props.muteState }),
-				_react2.default.createElement('div', { style: resizeStyle })
+				_react2.default.createElement(_Pause2.default, { play: this.props.play, iconState: this.props.playState }),
+				_react2.default.createElement(_Volume2.default, { mute: this.props.mute, iconState: this.props.muteState })
 			);
 		}
 	}]);
@@ -106,9 +95,11 @@ exports.default = Controls;
 
 Controls.propTypes = {
 	show: _propTypes2.default.bool,
+	play: _propTypes2.default.bool,
+	mute: _propTypes2.default.bool,
 	onMouseDown: _propTypes2.default.func,
 	onMouseUp: _propTypes2.default.func,
 	close: _propTypes2.default.func,
-	mute: _propTypes2.default.func,
-	muteState: _propTypes2.default.bool
+	muteState: _propTypes2.default.bool,
+	playState: _propTypes2.default.bool
 };

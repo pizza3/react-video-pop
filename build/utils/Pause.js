@@ -8,13 +8,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _play = require('./vectors/play.svg');
+
+var _play2 = _interopRequireDefault(_play);
+
 var _pause = require('./vectors/pause.svg');
 
 var _pause2 = _interopRequireDefault(_pause);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pause = function Pause() {
+var Pause = function Pause(props) {
 	var stylePause = {
 		position: 'absolute',
 		top: '70%',
@@ -35,9 +43,14 @@ var Pause = function Pause() {
 	};
 	return _react2.default.createElement(
 		'div',
-		{ style: stylePause },
-		_react2.default.createElement('img', { src: _pause2.default, style: imgStyle })
+		{ style: stylePause, onClick: props.play },
+		_react2.default.createElement('img', { src: props.iconState ? _pause2.default : _play2.default, style: imgStyle })
 	);
+};
+
+Pause.propTypes = {
+	iconState: _propTypes2.default.bool,
+	play: _propTypes2.default.func
 };
 
 exports.default = Pause;

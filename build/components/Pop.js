@@ -51,6 +51,7 @@ var Pop = function (_Component) {
 			show: _this.props.Show,
 			mouseOver: false,
 			mute: _this.props.mute,
+			play: _this.props.play,
 			pos: {
 				x: 10,
 				y: 10
@@ -63,7 +64,8 @@ var Pop = function (_Component) {
 				x: window.innerWidth - (300 + 10),
 				y: window.innerHeight - (168 + 10)
 			},
-			scale: 0
+			scale: 0,
+			Pop: _react2.default.createRef()
 		}, _this.handleEventListener = function () {
 			window.addEventListener('mousemove', _this.handleMove);
 			document.addEventListener('mouseleave', _this.handleUp);
@@ -81,9 +83,11 @@ var Pop = function (_Component) {
 			});
 		}, _this.handleMove = function (e) {
 			if (_this.state.isDown) {
-				var _document$getElementB = document.getElementById('pop').getBoundingClientRect(),
-				    width = _document$getElementB.width,
-				    height = _document$getElementB.height;
+				var node = _this.state.Pop.current;
+
+				var _node$getBoundingClie = node.getBoundingClientRect(),
+				    width = _node$getBoundingClie.width,
+				    height = _node$getBoundingClie.height;
 
 				var xdiff = -(_this.start.x - e.clientX) + _this.pos.x;
 				var ydiff = -(_this.start.y - e.clientY) + _this.pos.y;
@@ -159,8 +163,10 @@ var Pop = function (_Component) {
 			});
 		}, _this.handleMute = function () {
 			_this.props.muteVid();
+		}, _this.handlePlay = function () {
+			_this.props.playVid();
 		}, _this.handleScaleDown = function () {
-			var node = _this.Pop.current;
+			var node = _this.state.Pop.current;
 			var time = node.currentTime;
 			_this.props.closeVid(time);
 		}, _this.renderAnimation = function () {
@@ -180,14 +186,13 @@ var Pop = function (_Component) {
 	_createClass(Pop, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			var el = document.getElementById('pop');
-			this.Pop = _react2.default.createRef();
+			// let el = document.getElementById('pop');
+			var node = this.state.Pop.current;
 			this.handleEventListener();
-
 			if (this.state.mute) {
-				el.muted = true;
+				node.muted = true;
 			} else {
-				el.muted = false;
+				node.muted = false;
 			}
 			this.f, this.a, this.v = { x: 0, y: 0 };
 			this.fScale, this.aScale, this.vScale = 0;
@@ -236,7 +241,7 @@ var Pop = function (_Component) {
 					}
 				},
 				_react2.default.createElement('video', {
-					ref: this.Pop,
+					ref: this.state.Pop,
 					id: 'pop',
 					width: '300',
 					src: this.props.src,
@@ -249,37 +254,50 @@ var Pop = function (_Component) {
 					show: this.state.mouseOver,
 					close: this.handleScaleDown,
 					mute: this.handleMute,
-					muteState: this.state.mute
+					play: this.props.playVid,
+					muteState: this.state.mute,
+					playState: this.state.play
 				})
 			), root);
 		}
 	}], [{
 		key: 'getDerivedStateFromProps',
 		value: function getDerivedStateFromProps(props, state) {
-			var el = document.getElementById('pop');
-
+			var node = state.Pop.current;
 			if (props.currtime !== state.currtime) {
-				el.currentTime = props.currtime;
-				el.play();
+				node.currentTime = props.currtime;
+				node.play();
 				return {
 					currtime: props.currtime,
 					show: props.Show
 				};
 			} else if (props.Show !== state.show) {
-				el.pause();
+				node.pause();
 				return {
 					show: props.Show
 				};
 			} else if (props.mute !== state.mute) {
 				if (props.mute) {
-					el.muted = true;
+					node.muted = true;
 					return {
 						mute: props.mute
 					};
 				} else {
-					el.muted = false;
+					node.muted = false;
 					return {
 						mute: props.mute
+					};
+				}
+			} else if (props.play !== state.play) {
+				if (props.play) {
+					node.play();
+					return {
+						play: props.play
+					};
+				} else {
+					node.pause();
+					return {
+						play: props.play
 					};
 				}
 			}
@@ -296,7 +314,11 @@ exports.default = Pop;
 
 Pop.propTypes = {
 	Show: _propTypes2.default.bool,
+	mute: _propTypes2.default.bool,
+	play: _propTypes2.default.bool,
 	src: _propTypes2.default.string,
 	closeVid: _propTypes2.default.func,
+	muteVid: _propTypes2.default.func,
+	playVid: _propTypes2.default.func,
 	root: _propTypes2.default.string
 };
