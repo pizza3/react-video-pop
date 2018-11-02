@@ -13,6 +13,20 @@ npm install --save react-video-pop
 ```
 
 ## Usage
+```html
+    <!DOCTYPE html>
+    <html>
+        <head>
+        </head>
+        <body>
+            <!-- the div where your react DOM renders everything -->
+            <div id="root"></div>
+            <!-- the div which will render floating video -->
+            <div id='video-root'></div>
+        </body>
+    </html>
+```
+
 ```js
 import React, { Component } from 'react';
 import Scene from '../assets/devstories.webm';
@@ -38,6 +52,8 @@ export default class App extends Component {
 | root       | root element id (the portal div id attritube)                                                                                            | string           |
 
 ## How does it work
+
+The floating video element is made using the react portal api.
 
 ## Development
 
