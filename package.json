@@ -1,5 +1,5 @@
 {
-	"name": "react-video",
+	"name": "react-video-pop",
 	"version": "1.0.0",
 	"description": "Pop in video element's",
 	"main": "build/index.js",
@@ -12,14 +12,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/pizza3/react-video.git"
+		"url": "git+https://github.com/pizza3/react-video-pop.git"
 	},
 	"author": "",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/pizza3/react-video/issues"
+		"url": "https://github.com/pizza3/react-video-pop/issues"
 	},
-	"homepage": "https://github.com/pizza3/react-video#readme",
+	"homepage": "https://github.com/pizza3/react-video-pop#readme",
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
 		"babel-eslint": "^8.2.5",
