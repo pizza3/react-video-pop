@@ -13,6 +13,9 @@ npm install --save react-video-pop
 ```
 
 ## Usage
+
+Inside HTML file
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -26,6 +29,7 @@ npm install --save react-video-pop
     </body>
 </html>
 ```
+Inside your js 
 
 ```js
 import React, { Component } from 'react';
