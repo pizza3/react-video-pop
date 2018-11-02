@@ -48,11 +48,13 @@ export default class App extends Component {
 
 ## API
 
-| Prop          | Description   | Type  |
-| ------------- |:-------------:|:-----:|
-| src           | Required. A unique string to identify the component. | string |
-| mute          | mute the video before render.      | boolean |
-| duration      | Video duration (in seconds).       | int |
+| Prop          | Description   | Type  | Default Value |
+| ------------- |:-------------|:-----:|:-----|
+| src           | Required. A unique string to identify the component. | string  | null  |
+| mute          | mute the video before render.                        | boolean | false  |
+| duration      | Video duration (in seconds).                         | int     | 0    |
+| root          | Portal div element id attribute                      | string  | null    |
+
 
 
 
