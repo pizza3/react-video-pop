@@ -48,14 +48,13 @@ export default class App extends Component {
 
 ## API
 
-| Prop           | Description                                                                                                                  | Type | Default Value      |
-|----------------|------------------------------------------------------------------------------------------------------------------------------|---------------|
---------------------|
-| src             | Required. A unique string to identify the component.                                                                         |      string         |        |
-| mute        | mute the video before render.                                                                                                       | boolean         |         false |
-| duration       | Video duration (in  seconds).                                                                                                        | int           |       0        |
-| root       | root element id (the portal div id attritube)                                                                                            | string           |       null       |
-| overlay       | display's an message over the current video                                                                                           | string                | Floating Video Active           |
+| Prop          | Description   | Type  |
+| ------------- |:-------------:| -----:|
+| src           | Required. A unique string to identify the component. | string |
+| mute          | mute the video before render.      | boolean |
+| duration      | Video duration (in seconds).       | int |
+
+
 
 ## How does it work
 
