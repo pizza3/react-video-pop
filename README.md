@@ -14,17 +14,17 @@ npm install --save react-video-pop
 
 ## Usage
 ```html
-    <!DOCTYPE html>
-    <html>
-        <head>
-        </head>
-        <body>
-            <!-- the div where your react DOM renders everything -->
-            <div id="root"></div>
-            <!-- the div which will render floating video -->
-            <div id='video-root'></div>
-        </body>
-    </html>
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <!-- the div where your react DOM renders everything -->
+        <div id="root"></div>
+        <!-- the div which will render floating video -->
+        <div id='video-root'></div>
+    </body>
+</html>
 ```
 
 ```js
