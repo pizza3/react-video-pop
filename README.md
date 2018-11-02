@@ -53,7 +53,9 @@ export default class App extends Component {
 
 ## How does it work
 
-The floating video element is made using the react portal api.
+The floating video element is made using the react portal api. Where when the user scrolls down to cenrtain limit the portal 
+element gets rendered, following the ongoing video stream. The rest drag and drop animation on the floating video element is 
+done with requestAnimationFrame API using the spring constant formula.
 
 ## Development
 
