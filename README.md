@@ -29,6 +29,7 @@ export default class App extends Component {
 ```
 
 ##API
+
 | Prop           | Description                                                                                                                  | Default Value |
 |----------------|------------------------------------------------------------------------------------------------------------------------------|---------------|
 | src             | Required. Video asset location.                                                                         
