@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Img from './vectors/play.svg';
-import Img2 from './vectors/pause.svg';
 
+const Img = ()=>{
+	return(
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 52v408l320-204L96 52z"/></svg>
+	);
+};
+
+const Img2=()=>{
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"/></svg>;
+};
 const Pause = props => {
 	let stylePause = {
 		position: 'absolute',

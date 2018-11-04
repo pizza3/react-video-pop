@@ -12,16 +12,23 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _play = require('./vectors/play.svg');
-
-var _play2 = _interopRequireDefault(_play);
-
-var _pause = require('./vectors/pause.svg');
-
-var _pause2 = _interopRequireDefault(_pause);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var Img = function Img() {
+	return _react2.default.createElement(
+		'svg',
+		{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 512 512' },
+		_react2.default.createElement('path', { d: 'M96 52v408l320-204L96 52z' })
+	);
+};
+
+var Img2 = function Img2() {
+	_react2.default.createElement(
+		'svg',
+		{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 512 512' },
+		_react2.default.createElement('path', { d: 'M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z' })
+	);
+};
 var Pause = function Pause(props) {
 	var stylePause = {
 		position: 'absolute',
@@ -44,7 +51,7 @@ var Pause = function Pause(props) {
 	return _react2.default.createElement(
 		'div',
 		{ style: stylePause, onClick: props.play },
-		_react2.default.createElement('img', { src: props.iconState ? _pause2.default : _play2.default, style: imgStyle })
+		_react2.default.createElement('img', { src: props.iconState ? Img2 : Img, style: imgStyle })
 	);
 };
 
