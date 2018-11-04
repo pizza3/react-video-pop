@@ -1,6 +1,6 @@
 {
 	"name": "react-video-pop",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Pop in video element's",
 	"main": "build/index.js",
 	"scripts": {
