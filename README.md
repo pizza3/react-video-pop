@@ -7,9 +7,9 @@
 -  [Introduction](#introduction)
 -  [Installation](#installation)
 -  [Usage](#usage)
--  [API](#docs)
+-  [API](#api)
 -  [Demo](#demo)
--  [How does it work](#demo)
+-  [How does it work](#how-does-it-work)
 -  [Development](#development)
 -  [License](#license)
 
