@@ -50,7 +50,8 @@ export default class App extends Component {
 
 | Prop          | Description   | Type  | Default Value |
 | ------------- |:-------------|:-----:|:-----|
-| src           | Required. A unique string to identify the component. | string  | null  |
+| Src           | Required. A unique string to identify the component. | string  | null  |
+| Poster        | Apply the thumbnail image over video before playing  | string  | null  |
 | autoplay      | autoplay the video on render.                        | boolean | true  |
 | mute          | mute the video before render.                        | boolean | false |
 | duration      | Video duration (in seconds).                         | int     | 0     |

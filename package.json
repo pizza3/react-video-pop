@@ -5,7 +5,7 @@
 	"main": "build/index.js",
 	"scripts": {
 		"test": "jest",
-		"start": "webpack-dev-server --mode development --open --hot",
+		"start": "webpack-dev-server --config webpack.config.js --mode development --open --hot",
 		"build": "webpack --mode production",
 		"lib": "babel src/lib -d build --copy-files",
 		"lib:watch": "babel src/lib -w -d build --copy-files"
