@@ -2,6 +2,17 @@
 
 [![Build Status](https://travis-ci.com/pizza3/react-video-pop.svg?branch=master)](https://travis-ci.com/pizza3/react-video-pop)
 
+## Table Of Contents
+
+-  [Introduction](#introduction)
+-  [Installation](#installation)
+-  [Usage](#usage)
+-  [API](#docs)
+-  [Demo](#demo)
+-  [How does it work](#demo)
+-  [Development](#development)
+-  [License](#license)
+
 ## Introduction
 
 Floating video component made in react , which is draggable across any coordinate of the screen and resizable too. The working is inspired from the MacOS picture to picture feature.
@@ -57,7 +68,7 @@ export default class App extends Component {
 | duration      | Video duration (in seconds).                         | int     | 0     |
 | root          | Portal div element id attribute                      | string  | null  |
 
-
+## Demo
 
 
 ## How does it work
