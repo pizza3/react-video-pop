@@ -1,15 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Img = ()=>{
-	return(
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 52v408l320-204L96 52z"/></svg>
-	);
-};
-
-const Img2=()=>{
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"/></svg>;
-};
 const Pause = props => {
 	let stylePause = {
 		position: 'absolute',
@@ -29,9 +20,22 @@ const Pause = props => {
 		marginTop: '9px',
 		marginLeft: '9px'
 	};
+
+	const Img = ()=>{
+		return(
+			<svg xmlns="http://www.w3.org/2000/svg" style={imgStyle} viewBox="0 0 512 512"><path d="M96 52v408l320-204L96 52z"/></svg>
+		);
+	};
+	
+	const Img2=()=>{
+		<svg xmlns="http://www.w3.org/2000/svg" style={imgStyle} viewBox="0 0 512 512"><path d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"/></svg>;
+	};
 	return (
 		<div style={stylePause} onClick={props.play}>
-			<img src={props.iconState ? Img2 : Img} style={imgStyle} />
+			{props.iconState ? 
+				<svg xmlns="http://www.w3.org/2000/svg" style={imgStyle} viewBox="0 0 512 512"><path d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"/></svg>: 
+				<svg xmlns="http://www.w3.org/2000/svg" style={imgStyle} viewBox="0 0 512 512"><path d="M96 52v408l320-204L96 52z"/></svg>
+			}
 		</div>
 	);
 };

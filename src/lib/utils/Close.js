@@ -8,7 +8,7 @@ const Close = props => {
 		left: '10px',
 		width: '20px',
 		height: '20px',
-		background: 'rgb(0, 0, 0)',
+		background: 'rgb(226, 226, 226)',
 		border: '1px solid rgb(226, 226, 226)',
 		borderRadius: '50%',
 		opacity: '0.9',

@@ -135,12 +135,18 @@ class VideoPop extends Component {
 	};
 
 	render() {
+		let style  = {
+			'position':'absolute',
+			'width': '100%',
+			'height':'100%'
+		};
 		const { Src, root, Poster } = this.props;
 		const { Vid, show, currTime, mute, play } = this.state;
 		return (
 			<React.Fragment>
 				<video
 					ref={Vid}
+					style={style}
 					id="video-pop"
 					className="choose"
 					controls
