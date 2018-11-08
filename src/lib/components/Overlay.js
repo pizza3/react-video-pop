@@ -21,7 +21,8 @@ const HideText = {
 	marginBottom: 'auto',
 	fontWeight: '100',
 	fontSize: '28px',
-	textShadow: '1px 1px #0a0a0a'
+	textShadow: '1px 1px #0a0a0a',
+	textAlign: 'center'
 };
 
 const Overlay = () => {
