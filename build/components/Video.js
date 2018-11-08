@@ -140,6 +140,11 @@ var VideoPop = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var style = {
+				'position': 'absolute',
+				'width': '100%',
+				'height': '100%'
+			};
 			var _props = this.props,
 			    Src = _props.Src,
 			    root = _props.root,
@@ -156,6 +161,7 @@ var VideoPop = function (_Component) {
 				null,
 				_react2.default.createElement('video', {
 					ref: Vid,
+					style: style,
 					id: 'video-pop',
 					className: 'choose',
 					controls: true,

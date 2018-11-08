@@ -14,14 +14,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Img = function Img() {
-	return _react2.default.createElement(
-		'svg',
-		{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 512 512' },
-		_react2.default.createElement('path', { d: 'M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z' })
-	);
-};
-
 var Close = function Close(props) {
 	var style = {
 		position: 'absolute',
@@ -38,7 +30,11 @@ var Close = function Close(props) {
 	return _react2.default.createElement(
 		'div',
 		{ style: style, onClick: props.close },
-		_react2.default.createElement('img', { src: Img, width: '18px' })
+		_react2.default.createElement(
+			'svg',
+			{ xmlns: 'http://www.w3.org/2000/svg', width: '18px', viewBox: '0 0 512 512' },
+			_react2.default.createElement('path', { d: 'M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z' })
+		)
 	);
 };
 
