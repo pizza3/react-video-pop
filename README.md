@@ -89,7 +89,7 @@ npm link
 In project:
 
 ```bash
-npm link react-video-float
+npm link react-video-pop
 ```
 
 ## License
