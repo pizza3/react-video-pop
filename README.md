@@ -15,9 +15,9 @@
 
 ## Introduction
 
-Floating video component made in react , which is draggable across any coordinate of the screen and resizable too. The working is inspired from the MacOS picture to picture feature.
+Floating video component made in react , which is draggable across any coordinate of the screen, consist of basic controls like mute, play etc and resizable too across any corner of the window. The working is inspired from the MacOS picture to picture feature.
 
-<p align="center">
+<p align="left">
   <img src="./demo.gif" height="283" width="450">
 </p>
 
