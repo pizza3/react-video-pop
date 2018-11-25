@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Title = styled.div`
     font-family: 'Poppins',sans-serif;
     font-size: 29px;
-    color: #353535;
+    color: #cbcbcb;
     font-weight: 900;
 `;
 
@@ -18,14 +18,14 @@ const Cont = styled.div`
     -ms-letter-spacing: 0.3px;
     letter-spacing: 0.3px;
     font-weight: 600;
-    color: rgb(255, 113, 113);
+    color: rgb(255, 163, 163);
     margin-top: 20px;
 `;
 
 const Code = styled.code`
     border-radius: 4px;
     padding: 10px;
-    background: #e2e2e2;
+    background: #414562;
     color: #909090;
     font-size: 12px;
     font-family: 'Poppins',sans-serif;

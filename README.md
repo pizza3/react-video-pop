@@ -17,6 +17,10 @@
 
 Floating video component made in react , which is draggable across any coordinate of the screen and resizable too. The working is inspired from the MacOS picture to picture feature.
 
+<p align="center">
+  <img src="./demo.gif" height="283" width="450">
+</p>
+
 ## Installation
 
 ```js
@@ -48,11 +52,11 @@ import Scene from '../assets/devstories.webm';
 import VideoPop from 'react-video-pop';
 
 export default class App extends Component {
-	render() {
-		return (
-            <VideoPop Src={Scene} mute={true} autoplay={true} root="video-root" />
-		);
-	}
+    render() {
+        return (
+            <VideoPop Src={Scene} mute={true} autoplay={true}   root="video-root" ratio={{w:16,h:9}} />
+        );
+    }
 }
 
 ```
@@ -66,10 +70,12 @@ export default class App extends Component {
 | autoplay      | autoplay the video on render.                        | boolean | true  |
 | mute          | mute the video before render.                        | boolean | false |
 | duration      | Video duration (in seconds).                         | int     | 0     |
-| root          | Portal div element id attribute                      | string  | null  |
+| root          | Required. Portal div element id attribute                      | string  | null  |
+| ratio         | Required. Aspect ratio of the video src.             | object  | {w:16,h:9} | 
 
 ## Demo
 
+[Basic Demo](https://pizza3.github.io/react-video-pop/)
 
 ## How does it work
 

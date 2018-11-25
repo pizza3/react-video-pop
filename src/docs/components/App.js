@@ -6,7 +6,7 @@ import TextContent from './TextContent';
 
 const Title = styled.div`
 	position: relative;
-	background: #ffffff;
+	background: #383b51;
 	height: 200vh;
 	width: 100vw;
 `;
@@ -48,27 +48,28 @@ const ContRight =  styled.div`
 `;
 
 const Comp = ()=>{
-	return(
-		<div>
-			<VideoPop Src={Scene} mute={true} autoplay={false} root="video-root" />
-		</div>
-	);
+    return(
+        <div>
+            <VideoPop Src={Scene} mute={true} autoplay={false} root="video-root" ratio={{w:16,h:9}} />
+        </div>
+    );
 };
+
 export default class App extends Component {
-	render() {
-		return (
-			<Title>
-				<Head>
-					<ContLeft>
-						<Wrapper>
-							<Comp/>
-						</Wrapper>
-					</ContLeft>
-					<ContRight>
-						<TextContent/>
-					</ContRight>
-				</Head>
-			</Title>
-		);
-	}
+    render() {
+        return (
+            <Title>
+                <Head>
+                    <ContLeft>
+                        <Wrapper>
+                            <Comp/>
+                        </Wrapper>
+                    </ContLeft>
+                    <ContRight>
+                        <TextContent/>
+                    </ContRight>
+                </Head>
+            </Title>
+        );
+    }
 }

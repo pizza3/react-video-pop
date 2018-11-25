@@ -5,51 +5,51 @@ import Close from '../utils/Close';
 import Volume from '../utils/Volume';
 
 class Controls extends Component {
-	state = {};
+state = {};
 
-	render() {
-		let style = {
-			position: 'absolute',
-			width: '100%',
-			height: '100%',
-			transition: '0.3s',
-			top: '0',
-			left: '0',
-			opacity: this.props.show ? '1' : '0'
-		};
+render() {
+    let style = {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transition: '0.3s',
+        top: '0',
+        left: '0',
+        opacity: this.props.show ? '1' : '0'
+    };
 
-		let overlayStyle = {
-			position: 'absolute',
-			width: '100%',
-			height: '100%',
-			top: '0',
-			left: '0'
-		};
+    let overlayStyle = {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: '0',
+        left: '0'
+    };
 
-		return (
-			<div style={style}>
-				<div
-					style={overlayStyle}
-					onMouseDown={this.props.onMouseDown}
-					onMouseUp={this.props.onMouseUp}
-				/>
-				<Close close={this.props.close} />
-				<Pause play={this.props.play} iconState={this.props.playState} />
-				<Volume mute={this.props.mute} iconState={this.props.muteState} />
-			</div>
-		);
-	}
+    return (
+        <div style={style}>
+            <div
+                style={overlayStyle}
+                onMouseDown={this.props.onMouseDown}
+                onMouseUp={this.props.onMouseUp}
+            />
+            <Close close={this.props.close} />
+            <Pause play={this.props.play} iconState={this.props.playState} />
+            <Volume mute={this.props.mute} iconState={this.props.muteState} />
+        </div>
+    );
+}
 }
 
 export default Controls;
 
 Controls.propTypes = {
-	show: PropTypes.bool,
-	play: PropTypes.bool,
-	mute: PropTypes.bool,
-	onMouseDown: PropTypes.func,
-	onMouseUp: PropTypes.func,
-	close: PropTypes.func,
-	muteState: PropTypes.bool,
-	playState: PropTypes.bool
+    show: PropTypes.bool,
+    play: PropTypes.func,
+    mute: PropTypes.func,
+    onMouseDown: PropTypes.func,
+    onMouseUp: PropTypes.func,
+    close: PropTypes.func,
+    muteState: PropTypes.bool,
+    playState: PropTypes.bool
 };
