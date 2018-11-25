@@ -60,20 +60,20 @@ const Usage = styled.button`
 `;
 
 const TextContent = ()=>{
-	return(
-		<React.Fragment>
-			<Title>React Video Pop</Title>
-			<Cont>
+    return(
+        <React.Fragment>
+            <Title>React Video Pop</Title>
+            <Cont>
                 Floating video component made in react , which is draggable across any coordinate of the screen and resizable too. The working is inspired from the MacOS picture to picture feature.
-			</Cont>
-			<Code>
+            </Cont>
+            <Code>
                 npm install --save react-video-pop
-			</Code>
-			<div>
-				<Usage>Documentation</Usage>                
-			</div>
-		</React.Fragment>
-	);
+            </Code>
+            <div>
+                <a href='https://github.com/pizza3/react-video-pop#react-video-pop'><Usage>Documentation</Usage> </a>               
+            </div>
+        </React.Fragment>
+    );
 };
 
 

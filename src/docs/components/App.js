@@ -47,6 +47,14 @@ const ContRight =  styled.div`
 	padding-left: 3%;
 `;
 
+const Message = styled.div`
+	text-align: center;
+	color: #666d9b;
+	font-family: 'Poppins',sans-serif;
+	font-weight: bolder;
+	font-size: 11px;
+`;
+
 const Comp = ()=>{
     return(
         <div>
@@ -68,6 +76,7 @@ export default class App extends Component {
                     <ContRight>
                         <TextContent/>
                     </ContRight>
+                    <Message>* PLAY THE VIDEO AND SCROLL DOWN</Message>
                 </Head>
             </Title>
         );
