@@ -467,6 +467,46 @@ var Pop = function (_Component) {
             }
             _this.state.show ? _this.handleScale(1) : _this.handleScale(0);
             requestAnimationFrame(_this.renderAnimation);
+        }, _this.checkUpdate = function (props, state) {
+            var node = state.Pop.current;
+            if (props.currtime !== state.currtime) {
+                node.currentTime = props.currtime;
+                node.play();
+                _this.setState({
+                    currtime: props.currtime,
+                    show: props.Show
+                });
+            } else if (props.Show !== state.show) {
+                node.pause();
+                _this.setState({
+                    show: props.Show
+                });
+            } else if (props.mute !== state.mute) {
+                if (props.mute) {
+                    node.muted = true;
+                    _this.setState({
+                        mute: props.mute
+                    });
+                } else {
+                    node.muted = false;
+                    _this.setState({
+                        mute: props.mute
+                    });
+                }
+            } else if (props.play !== state.play) {
+                if (props.play) {
+                    node.play();
+                    _this.setState({
+                        play: props.play
+                    });
+                } else {
+                    node.pause();
+                    _this.setState({
+                        play: props.play
+                    });
+                }
+            }
+            // return null;
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -487,11 +527,58 @@ var Pop = function (_Component) {
                 active: true
             });
         }
+
+        // static getDerivedStateFromProps(props, state) {
+        //     let node = state.Pop.current;
+        //     if (props.currtime !== state.currtime) {
+        //         node.currentTime = props.currtime;
+        //         // console.log(node.currentTime);
+        //         node.play();
+        //         return {
+        //             currtime: props.currtime,
+        //             show: props.Show
+        //         };
+        //     } else if (props.Show !== state.show) {
+        //         node.pause();
+        //         return {
+        //             show: props.Show
+        //         };
+        //     } else if (props.mute !== state.mute) {
+        //         if (props.mute) {
+        //             node.muted = true;
+        //             return {
+        //                 mute: props.mute
+        //             };
+        //         } else {
+        //             node.muted = false;
+        //             return {
+        //                 mute: props.mute
+        //             };
+        //         }
+        //     } else if (props.play !== state.play) {
+        //         if (props.play) {
+        //             node.play();
+        //             return {
+        //                 play: props.play
+        //             };
+        //         } else {
+        //             node.pause();
+        //             return {
+        //                 play: props.play
+        //             };
+        //         }
+        //     }
+        //     return null;
+        // }
+
+        // position of the resize div
+
     }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
+            this.checkUpdate(this.props, this.state);
             var resizeCursor = this.state.resizeCursor;
 
             var root = document.getElementById(this.props.root);
@@ -559,52 +646,6 @@ var Pop = function (_Component) {
                 _react2.default.createElement('div', { style: resize, onMouseDown: this.resizeDown })
             ), root);
         }
-    }], [{
-        key: 'getDerivedStateFromProps',
-        value: function getDerivedStateFromProps(props, state) {
-            var node = state.Pop.current;
-            if (props.currtime !== state.currtime) {
-                node.currentTime = props.currtime;
-                node.play();
-                return {
-                    currtime: props.currtime,
-                    show: props.Show
-                };
-            } else if (props.Show !== state.show) {
-                node.pause();
-                return {
-                    show: props.Show
-                };
-            } else if (props.mute !== state.mute) {
-                if (props.mute) {
-                    node.muted = true;
-                    return {
-                        mute: props.mute
-                    };
-                } else {
-                    node.muted = false;
-                    return {
-                        mute: props.mute
-                    };
-                }
-            } else if (props.play !== state.play) {
-                if (props.play) {
-                    node.play();
-                    return {
-                        play: props.play
-                    };
-                } else {
-                    node.pause();
-                    return {
-                        play: props.play
-                    };
-                }
-            }
-            return null;
-        }
-
-        // position of the resize div
-
     }]);
 
     return Pop;

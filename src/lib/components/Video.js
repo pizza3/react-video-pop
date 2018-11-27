@@ -51,6 +51,7 @@ handleScroll = () => {
     const height = (property.height * 80) / 100;
     if (document.querySelector('video').playing) {
         if (window.scrollY >= height + this.state.top) {
+            // node.pause();
             this.setState(
                 {
                     show: true,
@@ -60,6 +61,7 @@ handleScroll = () => {
                     mute: node.muted
                 },
                 () => {
+                    // console.log(node.currentTime);
                     node.pause();
                 }
             );

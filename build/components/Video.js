@@ -60,6 +60,7 @@ var VideoPop = function (_Component) {
             var height = property.height * 80 / 100;
             if (document.querySelector('video').playing) {
                 if (window.scrollY >= height + _this.state.top) {
+                    // node.pause();
                     _this.setState({
                         show: true,
                         currTime: node.currentTime,
@@ -67,6 +68,7 @@ var VideoPop = function (_Component) {
                         play: document.querySelector('video').playing,
                         mute: node.muted
                     }, function () {
+                        // console.log(node.currentTime);
                         node.pause();
                     });
                 }

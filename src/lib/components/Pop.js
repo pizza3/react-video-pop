@@ -55,48 +55,6 @@ export default class Pop extends Component {
         });
     }
 
-    static getDerivedStateFromProps(props, state) {
-        let node = state.Pop.current;
-        if (props.currtime !== state.currtime) {
-            node.currentTime = props.currtime;
-            node.play();
-            return {
-                currtime: props.currtime,
-                show: props.Show
-            };
-        } else if (props.Show !== state.show) {
-            node.pause();
-            return {
-                show: props.Show
-            };
-        } else if (props.mute !== state.mute) {
-            if (props.mute) {
-                node.muted = true;
-                return {
-                    mute: props.mute
-                };
-            } else {
-                node.muted = false;
-                return {
-                    mute: props.mute
-                };
-            }
-        } else if (props.play !== state.play) {
-            if (props.play) {
-                node.play();
-                return {
-                    play: props.play
-                };
-            } else {
-                node.pause();
-                return {
-                    play: props.play
-                };
-            }
-        }
-        return null;
-    }
-
     calculateAspect = (a,b,c)=>{
         return c*(b/a);
     }
@@ -524,7 +482,50 @@ export default class Pop extends Component {
         requestAnimationFrame(this.renderAnimation);
     };
 
+    checkUpdate=(props,state)=>{
+        let node = state.Pop.current;
+        if (props.currtime !== state.currtime) {
+            node.currentTime = props.currtime;
+            node.play();
+            this.setState({
+                currtime: props.currtime,
+                show: props.Show
+            }) ;
+        } else if (props.Show !== state.show) {
+            node.pause();
+            this.setState({
+                show: props.Show
+            });
+        } else if (props.mute !== state.mute) {
+            if (props.mute) {
+                node.muted = true;
+                this.setState({
+                    mute: props.mute
+                });
+            } else {
+                node.muted = false;
+                this.setState({
+                    mute: props.mute
+                });
+            }
+        } 
+        else if (props.play !== state.play) {
+            if (props.play) {
+                node.play();
+                this.setState({
+                    play: props.play
+                });
+            } else {
+                node.pause();
+                this.setState({
+                    play: props.play
+                });
+            }
+        }
+    }
+
     render() {
+        this.checkUpdate(this.props,this.state);
         const {resizeCursor} = this.state;
         const root = document.getElementById(this.props.root);
         const style = {
