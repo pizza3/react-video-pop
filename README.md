@@ -83,6 +83,10 @@ The floating video element is made using the react portal api. Where when the us
 element gets rendered, following the ongoing video stream. The rest drag and drop animation on the floating video element is 
 done with requestAnimationFrame API using the spring constant formula.
 
+## TODO
+
+[ ] Synchronize the audio lag when the video modal gets shown.
+
 ## Development
 
 In source folder:
