@@ -86,7 +86,7 @@ done with requestAnimationFrame API using the spring constant formula.
 
 ## TODO
 
-[ ] Synchronize the audio lag when the video modal gets shown.
+- [ ] Synchronize the audio lag when the video modal gets shown.
 
 ## Development
 
